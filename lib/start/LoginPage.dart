@@ -1,5 +1,5 @@
 import 'package:chatting_app/componants/componants.dart';
-import 'package:chatting_app/registeration/RegisterationPage.dart';
+import 'package:chatting_app/start/RegisterationPage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

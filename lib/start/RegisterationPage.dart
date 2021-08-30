@@ -1,6 +1,11 @@
+import 'package:chatting_app/Home/HomeScreen.dart';
+import 'package:chatting_app/tools/AppProvider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../Database/User.dart' as dbUser;
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:provider/provider.dart';
 
 class RegisterationPage extends StatefulWidget {
   static const String routeName = 'registeration';
@@ -15,11 +20,12 @@ class _RegisterationPageState extends State<RegisterationPage> {
   String username ='';
   String email = '';
   String password = '';
-
   bool _isObscure = true;
+  late AppProvider provider;
 
   @override
   Widget build(BuildContext context) {
+    provider = Provider.of<AppProvider>(context);
     return Stack(
       children:[
 
@@ -153,6 +159,7 @@ class _RegisterationPageState extends State<RegisterationPage> {
   }
 
   final authInstance = FirebaseAuth.instance;
+  final database = FirebaseFirestore.instance;
 
   registerUser() async {
     setState(() {
@@ -163,7 +170,18 @@ class _RegisterationPageState extends State<RegisterationPage> {
           email: email,
           password: password
       );
-      showErrorMessage('account successfully created');
+      final usersCollectionRef = database.collection(dbUser.User.COLLECTION_NAME).withConverter<dbUser.User>(
+        fromFirestore: (snapshot, _) => dbUser.User.fromJson(snapshot.data()!),
+        toFirestore: (user, _) => user.toJson(),);
+
+
+      final user = dbUser.User(id: userCredential.user!.uid, username: username, email: email);
+      usersCollectionRef.add(user).then((value) {
+        provider.updateUser(user);
+        /// navigate to home screen
+        Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
+      }
+      );
     } on FirebaseAuthException catch (e) {
       showErrorMessage(e.message??'Something went wrong, please try again');
     } catch (e) {
