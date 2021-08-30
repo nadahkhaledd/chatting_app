@@ -1,6 +1,14 @@
+import 'package:chatting_app/Database/DatabaseHelper.dart';
+import 'package:chatting_app/Home/HomeScreen.dart';
+import 'package:chatting_app/tools/AppProvider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../Database/User.dart' as dbUser;
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:provider/provider.dart';
+
+import 'LoginPage.dart';
 
 class RegisterationPage extends StatefulWidget {
   static const String routeName = 'registeration';
@@ -15,11 +23,12 @@ class _RegisterationPageState extends State<RegisterationPage> {
   String username ='';
   String email = '';
   String password = '';
-
   bool _isObscure = true;
+  late AppProvider provider;
 
   @override
   Widget build(BuildContext context) {
+    provider = Provider.of<AppProvider>(context);
     return Stack(
       children:[
 
@@ -134,7 +143,12 @@ class _RegisterationPageState extends State<RegisterationPage> {
                         ),
                       ),
                     ),
-                  )
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextButton(onPressed: () => Navigator.pushReplacementNamed(context, LoginPage.routeName),
+                      child: Text('Already have an account?'),),
+                  ),
                 ],
               ),
             ),
@@ -153,6 +167,7 @@ class _RegisterationPageState extends State<RegisterationPage> {
   }
 
   final authInstance = FirebaseAuth.instance;
+  final database = FirebaseFirestore.instance;
 
   registerUser() async {
     setState(() {
@@ -163,7 +178,16 @@ class _RegisterationPageState extends State<RegisterationPage> {
           email: email,
           password: password
       );
-      showErrorMessage('account successfully created');
+      final usersCollectionRef = getUsersCollection();
+
+
+      final user = dbUser.User(id: userCredential.user!.uid, username: username, email: email);
+      usersCollectionRef.doc(user.id).set(user).then((value) {
+        provider.updateUser(user);
+        /// navigate to home screen
+        Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
+      }
+      );
     } on FirebaseAuthException catch (e) {
       showErrorMessage(e.message??'Something went wrong, please try again');
     } catch (e) {

@@ -1,8 +1,11 @@
-// ignore: import_of_legacy_library_into_null_safe
-import 'package:chatting_app/registeration/RegisterationPage.dart';
+//ignore: import_of_legacy_library_into_null_safe
+import 'package:chatting_app/Home/HomeScreen.dart';
+import 'package:chatting_app/start/RegisterationPage.dart';
+import 'package:chatting_app/tools/AppProvider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'login/LoginPage.dart';
+import 'package:provider/provider.dart';
+import 'start/LoginPage.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,13 +22,19 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      routes: {
-        RegisterationPage.routeName: (context)=> RegisterationPage(),
-        LoginPage.routeName: (context)=> LoginPage(),
-      },
-      initialRoute: LoginPage.routeName,
+    return ChangeNotifierProvider(
+        create: (context)=> AppProvider(),
+      builder: (context, widget){
+        return MaterialApp(
+          routes: {
+            RegisterationPage.routeName: (context)=> RegisterationPage(),
+            LoginPage.routeName: (context)=> LoginPage(),
+            HomeScreen.routeName: (context)=> HomeScreen(),
+          },
+          initialRoute: LoginPage.routeName,
 
+        );
+      },
     );
   }
 }
