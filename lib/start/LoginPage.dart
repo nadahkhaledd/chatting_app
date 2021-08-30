@@ -1,8 +1,14 @@
+import 'package:chatting_app/Database/DatabaseHelper.dart';
+import 'package:chatting_app/Home/HomeScreen.dart';
 import 'package:chatting_app/componants/componants.dart';
 import 'package:chatting_app/start/RegisterationPage.dart';
+import 'package:chatting_app/tools/AppProvider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:provider/provider.dart';
+import '../Database/User.dart' as dbUser;
 
 class LoginPage extends StatefulWidget {
  static const String routeName = 'login';
@@ -17,11 +23,12 @@ class _LoginPageState extends State<LoginPage> {
  String email = '';
  String password = '';
  bool isLoading = false;
-
  bool _isObscure = true;
+ late AppProvider provider;
 
   @override
   Widget build(BuildContext context) {
+    provider = Provider.of<AppProvider>(context);
     return   Stack(
       children:[
 
@@ -126,9 +133,7 @@ class _LoginPageState extends State<LoginPage> {
                 Padding(
                   padding: const EdgeInsets.only(top: 30),
                   child: InkWell(
-                    onTap: ()=> Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => RegisterationPage())),
+                    onTap: ()=> Navigator.pushReplacementNamed(context, RegisterationPage.routeName),
 
                     child: Text('or Create an account', style: TextStyle(color: Colors.black54, fontSize: 14),),
                   ),
@@ -147,6 +152,8 @@ class _LoginPageState extends State<LoginPage> {
       loginUser();
  }
 
+ final database = FirebaseFirestore.instance;
+
  loginUser() async {
    setState(() {
      isLoading = true;
@@ -156,7 +163,14 @@ class _LoginPageState extends State<LoginPage> {
          email: email,
          password: password
      );
-     showErrorMessage('data is correct');
+     if(userCredential.user == null)
+       showErrorMessage('no user exists with this email and password');
+     else{
+       getUsersCollection().doc(userCredential.user!.uid).get().then((user){
+         provider.updateUser(user.data());
+         Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+       } );
+     }
    } on FirebaseAuthException catch (e) {
      showErrorMessage(e.message??'Something went wrong, please try again');
    }
