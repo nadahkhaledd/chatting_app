@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class RegisterationPage extends StatefulWidget {
@@ -12,10 +13,10 @@ class _RegisterationPageState extends State<RegisterationPage> {
   final registerFormKey = GlobalKey<FormState>();
 
   String username ='';
-
   String email = '';
-
   String password = '';
+
+  bool _isObscure = true;
 
   @override
   Widget build(BuildContext context) {
@@ -32,84 +33,110 @@ class _RegisterationPageState extends State<RegisterationPage> {
         Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
-            title: Text('Create Account'),
+            title: Text('Create Account', style: TextStyle(fontWeight: FontWeight.bold)),
             centerTitle: true,
             backgroundColor: Colors.transparent,
             elevation: 0,
           ),
 
-          body: Container(
-            padding: EdgeInsets.all(12),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Form(
-                    key: registerFormKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      TextFormField(
-                        decoration: InputDecoration(
-                          labelText: 'username',
-                          labelStyle: TextStyle(color: Colors.black87),
-                          floatingLabelBehavior: FloatingLabelBehavior.auto,
+          body: Padding(
+            padding: const EdgeInsets.only(top: 70),
+            child: Container(
+              padding: EdgeInsets.all(12),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Form(
+                      key: registerFormKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        TextFormField(
+                          decoration: InputDecoration(
+                            labelText: 'username',
+                            labelStyle: TextStyle(color: Colors.black54),
+                            floatingLabelBehavior: FloatingLabelBehavior.auto,
+                          ),
+                          validator: (value){
+                            if(value == null || value.isEmpty)
+                              return 'please enter username';
+                            return null;
+                          },
+                          onChanged: (newValue){
+                            username = newValue;
+                          },
+
                         ),
-                        validator: (value){
-                          if(value == null || value.isEmpty)
-                            return 'please enter username';
-                          return null;
-                        },
-                        onChanged: (newValue){
-                          username = newValue;
-                        },
 
-                      ),
+                        TextFormField(
+                          decoration: InputDecoration(
+                            labelText: 'Email',
+                            labelStyle: TextStyle(color: Colors.black54),
+                            floatingLabelBehavior: FloatingLabelBehavior.auto,
+                          ),
+                          validator: (value){
+                            if(value == null || value.isEmpty)
+                              return 'please enter your email';
+                            return null;
+                          },
+                          onChanged: (newValue){
+                            email = newValue;
+                          },
 
-                      TextFormField(
-                        decoration: InputDecoration(
-                          labelText: 'email',
-                          labelStyle: TextStyle(color: Colors.black87),
-                          floatingLabelBehavior: FloatingLabelBehavior.auto,
                         ),
-                        validator: (value){
-                          if(value == null || value.isEmpty)
-                            return 'please enter your email';
-                          return null;
-                        },
-                        onChanged: (newValue){
-                          email = newValue;
-                        },
 
-                      ),
-
-                      TextFormField(
-                        decoration: InputDecoration(
-                          labelText: 'password',
-                          labelStyle: TextStyle(color: Colors.black87),
-                          floatingLabelBehavior: FloatingLabelBehavior.auto,
+                        TextFormField(
+                          obscureText: _isObscure,
+                          decoration: InputDecoration(
+                            labelText: 'Password',
+                            suffixIcon: IconButton(
+                              icon: Icon(_isObscure ? Icons.visibility : Icons.visibility_off),
+                              onPressed: (){
+                                setState(() {
+                                  _isObscure = !_isObscure;
+                                });
+                              },
+                            ),
+                            labelStyle: TextStyle(color: Colors.black54),
+                            floatingLabelBehavior: FloatingLabelBehavior.auto,
+                          ),
+                          validator: (value){
+                            if(value == null || value.isEmpty)
+                              return 'please enter password';
+                            else if (value.length < 8)
+                              return 'password minimum length is 8 characters';
+                            return null;
+                          },
+                          onChanged: (newValue){
+                            password = newValue;
+                          },
                         ),
-                        validator: (value){
-                          if(value == null || value.isEmpty)
-                            return 'please enter password';
-                          else if (value.length < 8)
-                            return 'password minimum length is 8 characters';
-                          return null;
-                        },
-                        onChanged: (newValue){
-                          password = newValue;
-                        },
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                isLoading?
-                    Center(
-                      child: CircularProgressIndicator(),):
-                ElevatedButton(onPressed: ()=> createAccount(),
-                  child: Text('Create Account'),
-                )
-              ],
+                  isLoading?
+                      Center(
+                        child: CircularProgressIndicator(),):
+                  Padding(
+                    padding: const EdgeInsets.only(top: 85),
+                    child: ElevatedButton(onPressed: ()=> createAccount(),
+                      style: ElevatedButton.styleFrom(
+                        primary:Colors.white,
+                        ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Row(
+                          children: [
+                            Expanded(flex: 3, child: Text('Create Account', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.grey),)),
+                            Expanded(child: Icon(CupertinoIcons.arrow_right, color: Colors.grey,)),
+                          ],
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),

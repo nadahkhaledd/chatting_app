@@ -24,7 +24,7 @@ class _MyAppState extends State<MyApp> {
         RegisterationPage.routeName: (context)=> RegisterationPage(),
         LoginPage.routeName: (context)=> LoginPage(),
       },
-      initialRoute: RegisterationPage.routeName,
+      initialRoute: LoginPage.routeName,
 
     );
   }
