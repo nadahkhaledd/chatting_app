@@ -1,5 +1,5 @@
 import 'package:chatting_app/Database/DatabaseHelper.dart';
-import 'package:chatting_app/Home/HomeScreen.dart';
+import 'package:chatting_app/HomePage/HomeScreen.dart';
 import 'package:chatting_app/componants/componants.dart';
 import 'package:chatting_app/start/RegisterationPage.dart';
 import 'package:chatting_app/tools/AppProvider.dart';
@@ -48,97 +48,99 @@ class _LoginPageState extends State<LoginPage> {
             elevation: 0,
           ),
 
-          body: Container(
-            padding: EdgeInsets.all(12),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 65, bottom: 8),
-                  child: Text('Welcome back!', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 22),),
-                ),
-                Form(
-                  key: loginFormKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      TextFormField(
-                        decoration: InputDecoration(
-                          labelText: 'Email',
-                          labelStyle: TextStyle(color: Colors.black54),
-                          floatingLabelBehavior: FloatingLabelBehavior.auto,
-                        ),
-                        validator: (value){
-                          if(value == null || value.isEmpty)
-                            return 'please enter your email';
-                          return null;
-                        },
-                        onChanged: (newValue){
-                          email = newValue;
-                        },
-                      ),
-
-                      TextFormField(
-                        obscureText: _isObscure,
-                        decoration: InputDecoration(
-                          labelText: 'Password',
-                          suffixIcon: IconButton(
-                            icon: Icon(_isObscure ? Icons.visibility : Icons.visibility_off),
-                            onPressed: (){
-                              setState(() {
-                                _isObscure = !_isObscure;
-                              });
-                            },
-                          ),
-                          labelStyle: TextStyle(color: Colors.black54),
-                          floatingLabelBehavior: FloatingLabelBehavior.auto,
-                        ),
-
-                        validator: (value){
-                          if(value == null || value.isEmpty)
-                            return 'please enter password';
-                          return null;
-                        },
-                        onChanged: (newValue){
-                          password = newValue;
-                        },
-                      ),
-                    ],
+          body: SingleChildScrollView(
+            child: Container(
+              padding: EdgeInsets.all(7),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 170, bottom: 8),
+                    child: Text('Welcome back!', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 22),),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 30, bottom: 20),
-                  child: InkWell(
-                    onTap: null,
-                    child: Text('Forgot password?', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 12),),
-                  ),
-                ),
-
-                isLoading?
-                Center(
-                  child: CircularProgressIndicator(),):
-                ElevatedButton(onPressed: ()=> LoginButton(),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Row(
+                  Form(
+                    key: loginFormKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        Expanded(flex: 3, child: Text('Login', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),)),
-                        Expanded(child: Icon(CupertinoIcons.arrow_right)),
+                        TextFormField(
+                          decoration: InputDecoration(
+                            labelText: 'Email',
+                            labelStyle: TextStyle(color: Colors.black54),
+                            floatingLabelBehavior: FloatingLabelBehavior.auto,
+                          ),
+                          validator: (value){
+                            if(value == null || value.isEmpty)
+                              return 'please enter your email';
+                            return null;
+                          },
+                          onChanged: (newValue){
+                            email = newValue;
+                          },
+                        ),
+
+                        TextFormField(
+                          obscureText: _isObscure,
+                          decoration: InputDecoration(
+                            labelText: 'Password',
+                            suffixIcon: IconButton(
+                              icon: Icon(_isObscure ? Icons.visibility : Icons.visibility_off),
+                              onPressed: (){
+                                setState(() {
+                                  _isObscure = !_isObscure;
+                                });
+                              },
+                            ),
+                            labelStyle: TextStyle(color: Colors.black54),
+                            floatingLabelBehavior: FloatingLabelBehavior.auto,
+                          ),
+
+                          validator: (value){
+                            if(value == null || value.isEmpty)
+                              return 'please enter password';
+                            return null;
+                          },
+                          onChanged: (newValue){
+                            password = newValue;
+                          },
+                        ),
                       ],
                     ),
                   ),
-                ),
-
-                Padding(
-                  padding: const EdgeInsets.only(top: 30),
-                  child: InkWell(
-                    onTap: ()=> Navigator.pushReplacementNamed(context, RegisterationPage.routeName),
-
-                    child: Text('or Create an account', style: TextStyle(color: Colors.black54, fontSize: 14),),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 30, bottom: 20),
+                    child: InkWell(
+                      onTap: null,
+                      child: Text('Forgot password?', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 12),),
+                    ),
                   ),
-                )
-              ],
+
+                  isLoading?
+                  Center(
+                    child: CircularProgressIndicator(),):
+                  ElevatedButton(onPressed: ()=> LoginButton(),
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Row(
+                        children: [
+                          Expanded(flex: 3, child: Text('Login', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),)),
+                          Expanded(child: Icon(CupertinoIcons.arrow_right)),
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.only(top: 30),
+                    child: InkWell(
+                      onTap: ()=> Navigator.pushReplacementNamed(context, RegisterationPage.routeName),
+
+                      child: Text('or Create an account', style: TextStyle(color: Colors.black54, fontSize: 14),),
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),
