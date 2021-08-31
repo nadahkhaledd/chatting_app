@@ -1,12 +1,15 @@
 import 'package:chatting_app/Database/DatabaseHelper.dart';
 import 'package:chatting_app/HomePage/HomeScreen.dart';
 import 'package:chatting_app/componants/componants.dart';
+import 'package:chatting_app/generated/l10n.dart';
 import 'package:chatting_app/start/RegisterationPage.dart';
 import 'package:chatting_app/tools/AppProvider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'package:provider/provider.dart';
 import '../Database/User.dart' as dbUser;
 
@@ -42,7 +45,8 @@ class _LoginPageState extends State<LoginPage> {
         Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
-            title: Text('Login', style: TextStyle(fontWeight: FontWeight.bold),),
+            title: Text(AppLocalizations.of(context)!.appTitle,
+              style: TextStyle(fontWeight: FontWeight.bold),),
             centerTitle: true,
             backgroundColor: Colors.transparent,
             elevation: 0,
@@ -57,7 +61,7 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(top: 170, bottom: 8),
-                    child: Text('Welcome back!', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 22),),
+                    child: Text(AppLocalizations.of(context)!.welcomeBack, style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 22),),
                   ),
                   Form(
                     key: loginFormKey,
@@ -66,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
                       children: [
                         TextFormField(
                           decoration: InputDecoration(
-                            labelText: 'Email',
+                            labelText: AppLocalizations.of(context)!.email,
                             labelStyle: TextStyle(color: Colors.black54),
                             floatingLabelBehavior: FloatingLabelBehavior.auto,
                           ),
@@ -83,7 +87,7 @@ class _LoginPageState extends State<LoginPage> {
                         TextFormField(
                           obscureText: _isObscure,
                           decoration: InputDecoration(
-                            labelText: 'Password',
+                            labelText: AppLocalizations.of(context)!.password,
                             suffixIcon: IconButton(
                               icon: Icon(_isObscure ? Icons.visibility : Icons.visibility_off),
                               onPressed: (){
@@ -112,7 +116,7 @@ class _LoginPageState extends State<LoginPage> {
                     padding: const EdgeInsets.only(top: 30, bottom: 20),
                     child: InkWell(
                       onTap: null,
-                      child: Text('Forgot password?', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 12),),
+                      child: Text(AppLocalizations.of(context)!.forgotPass, style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 12),),
                     ),
                   ),
 
@@ -124,7 +128,7 @@ class _LoginPageState extends State<LoginPage> {
                       padding: const EdgeInsets.all(12.0),
                       child: Row(
                         children: [
-                          Expanded(flex: 3, child: Text('Login', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),)),
+                          Expanded(flex: 3, child: Text(AppLocalizations.of(context)!.login, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),)),
                           Expanded(child: Icon(CupertinoIcons.arrow_right)),
                         ],
                       ),
@@ -136,7 +140,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: InkWell(
                       onTap: ()=> Navigator.pushReplacementNamed(context, RegisterationPage.routeName),
 
-                      child: Text('or Create an account', style: TextStyle(color: Colors.black54, fontSize: 14),),
+                      child: Text(AppLocalizations.of(context)!.orCreateAcc, style: TextStyle(color: Colors.black54, fontSize: 14),),
                     ),
                   )
                 ],
