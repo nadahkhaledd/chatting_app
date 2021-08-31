@@ -4,6 +4,8 @@ import 'package:chatting_app/componants/componants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class AddRooms extends StatefulWidget {
   @override
@@ -42,7 +44,7 @@ class _AddRoomsState extends State<AddRooms> {
             backgroundColor: Colors.transparent,
             appBar: AppBar(
               title: Text(
-                'Chat App',
+                AppLocalizations.of(context)!.appTitle,
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               centerTitle: true,
@@ -73,7 +75,7 @@ class _AddRoomsState extends State<AddRooms> {
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Text(
-                            'Create New Room',
+                            AppLocalizations.of(context)!.createRoomTxt,
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -88,7 +90,7 @@ class _AddRoomsState extends State<AddRooms> {
                               context: context,
                               controller: roomController,
                               type: TextInputType.text,
-                              label: 'Room Name',
+                              label: AppLocalizations.of(context)!.roomName,
                               messageValidate: "Room Name Can't be empty",
                               fontColor: Colors.grey),
                           DropdownButton<String>(
@@ -126,7 +128,7 @@ class _AddRoomsState extends State<AddRooms> {
                               context: context,
                               controller: descriptionController,
                               type: TextInputType.text,
-                              label: 'Room Description',
+                              label: AppLocalizations.of(context)!.roomDescription,
                               messageValidate: "Room description Can't be empty",
                               fontColor: Colors.grey),
                           SizedBox(
@@ -139,7 +141,7 @@ class _AddRoomsState extends State<AddRooms> {
                                 addRoom();
                               }
                           },
-                            child:  isLoading? Center(child: CircularProgressIndicator()):Text('Create',style: TextStyle(
+                            child:  isLoading? Center(child: CircularProgressIndicator()):Text(AppLocalizations.of(context)!.createRoomBtn,style: TextStyle(
                               fontSize: 17
                             )
                             ,),
