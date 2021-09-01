@@ -78,9 +78,14 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                             } else if (snapshot.hasData) {
                               return ListView.builder(
                                 itemBuilder: (buildContext, index) {
-                                  print(snapshot.data?.docs[index].data());
+
+                                  var content=snapshot.data?.docs[index].get("content");
+                                  var id=snapshot.data?.docs[index].get("senderId");
+                                  var senderName=snapshot.data?.docs[index].get("senderNamw");
+                                  var time=snapshot.data?.docs[index].get("time");
+                                  //print(snapshot.data?.docs[index].get("senderName"));
                                   return MessageWidget(
-                                      snapshot.data?.docs[index].data());
+                                      content,id,senderName,time);
                                 },
                                 itemCount: snapshot.data?.size ?? 0,
                               );

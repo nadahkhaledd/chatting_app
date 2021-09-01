@@ -4,30 +4,34 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class MessageWidget extends StatelessWidget {
-  Messages? message;
-  MessageWidget(this.message);
+  String? senderId;
+  //String? senderName;
+  String? content;
+  String? senderName;
+  int? time;
+  MessageWidget(this.content,this.senderId,this.senderName,this.time);
 
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<AppProvider>(context);
-    return message == null
+    return content == null
         ? Container()
-        : (message?.senderId == provider.currentUser?.id
-            ? sentMessage(message!)
-            : RecievedMessage(message!));
+        : (senderId == provider.currentUser?.id
+            ? sentMessage(content!)
+            : RecievedMessage(content!,senderName!));
   }
 }
 
 class sentMessage extends StatelessWidget {
-  Messages message;
+  String content;
 
-  sentMessage(this.message);
+  sentMessage(this.content);
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        Text(message.getDateFormatted()),
+        Text(content),
         Container(
             padding: EdgeInsets.all(12),
             margin: EdgeInsets.all(8),
@@ -39,21 +43,22 @@ class sentMessage extends StatelessWidget {
                 bottomLeft: Radius.circular(12),
               ),
             ),
-            child: Text(message.content, style: TextStyle(color: Colors.white)))
+            child: Text(content, style: TextStyle(color: Colors.white)))
       ],
     );
   }
 }
 
 class RecievedMessage extends StatelessWidget {
-  Messages message;
-  RecievedMessage(this.message);
+  String content;
+  String senderName;
+  RecievedMessage(this.content,this.senderName);
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(message.senderName),
+        Text(senderName),
         Row(
           children: [
             Container(
@@ -65,9 +70,9 @@ class RecievedMessage extends StatelessWidget {
                         topRight: Radius.circular(12),
                         bottomRight: Radius.circular(12),
                         bottomLeft: Radius.circular(12))),
-                child: Text(message.content,
+                child: Text(content,
                     style: TextStyle(color: Colors.blue))),
-            Text(message.getDateFormatted()),
+            Text(content),
           ],
         )
       ],
