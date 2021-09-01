@@ -112,12 +112,15 @@ class _AddRoomsState extends State<AddRooms> {
                                 value: value,
                                 child: Row(children: [
                                   Text(value),
-                                  // Image(
-                                  //   image: AssetImage('assets/icons/Movies.png'),
-                                  //   width: 20,
-                                  //   height: 20,
-                                  //   fit: BoxFit.cover,
-                                  // )
+                                  SizedBox(
+                                    width: widthResponsive(context: context, width: 20),
+                                  ),
+                                  Image(
+                                    image: AssetImage('assets/icons/'+value+'.png'),
+                                    width: 20,
+                                    height: 20,
+                                    fit: BoxFit.cover,
+                                  )
                                 ]),
                               );
                             }).toList(),

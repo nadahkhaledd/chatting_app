@@ -1,5 +1,6 @@
 import 'package:chatting_app/Database/Room.dart';
 import 'package:chatting_app/RoomDetails/RoomDetailsScreen.dart';
+import 'package:chatting_app/componants/componants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -28,9 +29,30 @@ class RoomWidget extends StatelessWidget {
             )]
           ),
         child:  Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children:  [
-             ///Adding Image
-            Text(room.name),
+            SizedBox(
+              height: heightResponsive(context: context, height: 20),
+
+            ),
+            Image(
+              image: AssetImage('assets/icons/'+room.category+'.png'),
+              width: widthResponsive(context: context, width: 3),
+              height: heightResponsive(context: context, height: 10),
+              fit: BoxFit.contain,
+            ),
+
+                Center(
+                  child: Text(room.name,style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20
+                  ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+
 
             ]
           )
