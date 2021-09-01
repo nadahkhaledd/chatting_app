@@ -1,6 +1,7 @@
 import 'package:chatting_app/Database/DatabaseHelper.dart';
 import 'package:chatting_app/Database/Room.dart';
 import 'package:chatting_app/componants/componants.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -14,6 +15,7 @@ class AddRooms extends StatefulWidget {
 }
 
 class _AddRoomsState extends State<AddRooms> {
+
   TextEditingController roomController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -23,9 +25,7 @@ class _AddRoomsState extends State<AddRooms> {
     "Movies",
     "Music",
   ];
-
   String dropdownValue = 'One';
-
   String selectedCategory = "Sports";
   @override
   Widget build(BuildContext context) {

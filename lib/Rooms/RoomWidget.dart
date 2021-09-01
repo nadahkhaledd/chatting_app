@@ -1,9 +1,11 @@
 import 'package:chatting_app/Database/Room.dart';
 import 'package:chatting_app/RoomDetails/RoomDetailsScreen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class RoomWidget extends StatelessWidget {
   Room room;
+  //late QueryDocumentSnapshot<Room> room;
   RoomWidget(this.room);
   @override
   Widget build(BuildContext context) {
