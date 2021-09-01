@@ -1,4 +1,3 @@
-
 class Messages {
   static const String COLLECTION_NAME = 'messages';
   String id;
