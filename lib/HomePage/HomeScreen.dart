@@ -8,6 +8,9 @@ import 'package:chatting_app/componants/componants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import 'SideMenu.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = 'HomeScreen';
@@ -55,17 +58,26 @@ class _HomeScreenState extends State<HomeScreen> {
                 tabs:screensTabs,
               ),
               title: Text(
-                'Chat App',
+      AppLocalizations.of(context)!.appTitle,
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               centerTitle: true,
               backgroundColor: Colors.transparent,
               elevation: 0,
-              actions: [
-                IconButton(onPressed: (){}, icon: Icon(Icons.search,size: 40,),)
+              <Widget>[
+                IconButton(
+                  icon: Icon(
+                    CupertinoIcons.search,
+                    //Icons.search,
+                    color: Colors.white,
+                    size: 42.0,
+                  ),
+                  onPressed: () {},
+                )
               ],
 
             ),
+            drawer: SideMenu(),
       floatingActionButton: FloatingActionButton(
       onPressed: () {
         navigateTo(context, AddRooms());

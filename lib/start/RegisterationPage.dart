@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import '../Database/User.dart' as dbUser;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 import 'LoginPage.dart';
 
@@ -42,7 +44,7 @@ class _RegisterationPageState extends State<RegisterationPage> {
         Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
-            title: Text('Create Account', style: TextStyle(fontWeight: FontWeight.bold)),
+            title: Text(AppLocalizations.of(context)!.createAccBtn, style: TextStyle(fontWeight: FontWeight.bold)),
             centerTitle: true,
             backgroundColor: Colors.transparent,
             elevation: 0,
@@ -64,7 +66,7 @@ class _RegisterationPageState extends State<RegisterationPage> {
                         children: [
                           TextFormField(
                             decoration: InputDecoration(
-                              labelText: 'username',
+                              labelText: AppLocalizations.of(context)!.username,
                               labelStyle: TextStyle(color: Colors.black54),
                               floatingLabelBehavior: FloatingLabelBehavior.auto,
                             ),
@@ -81,7 +83,7 @@ class _RegisterationPageState extends State<RegisterationPage> {
 
                           TextFormField(
                             decoration: InputDecoration(
-                              labelText: 'Email',
+                              labelText: AppLocalizations.of(context)!.email,
                               labelStyle: TextStyle(color: Colors.black54),
                               floatingLabelBehavior: FloatingLabelBehavior.auto,
                             ),
@@ -99,7 +101,7 @@ class _RegisterationPageState extends State<RegisterationPage> {
                           TextFormField(
                             obscureText: _isObscure,
                             decoration: InputDecoration(
-                              labelText: 'Password',
+                              labelText: AppLocalizations.of(context)!.password,
                               suffixIcon: IconButton(
                                 icon: Icon(_isObscure ? Icons.visibility : Icons.visibility_off),
                                 onPressed: (){
@@ -139,7 +141,8 @@ class _RegisterationPageState extends State<RegisterationPage> {
                           padding: const EdgeInsets.all(12.0),
                           child: Row(
                             children: [
-                              Expanded(flex: 3, child: Text('Create Account', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.grey),)),
+                              Expanded(flex: 3, child: Text(AppLocalizations.of(context)!.createAccBtn,
+                                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.grey),)),
                               Expanded(child: Icon(CupertinoIcons.arrow_right, color: Colors.grey,)),
                             ],
                           ),
@@ -149,7 +152,7 @@ class _RegisterationPageState extends State<RegisterationPage> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextButton(onPressed: () => Navigator.pushReplacementNamed(context, LoginPage.routeName),
-                        child: Text('Already have an account?'),),
+                        child: Text(AppLocalizations.of(context)!.haveAnAccount),),
                     ),
                   ],
                 ),
