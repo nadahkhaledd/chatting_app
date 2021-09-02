@@ -14,11 +14,12 @@ class RoomWidget extends StatelessWidget {
             Navigator.of(context).pushNamed(RoomDetailsScreen.routeName,arguments: RoomDetailsArgs(room));
         },
         child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(12.0),
         child: Container(
+          height: 37,
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(40),
+            borderRadius: BorderRadius.circular(10),
             boxShadow:[ BoxShadow(
               color: Colors.grey,
               blurRadius: 4,
@@ -26,9 +27,16 @@ class RoomWidget extends StatelessWidget {
             )]
           ),
         child:  Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children:  [
-             ///Adding Image
-            Text(room.name),
+             Padding(
+               padding: const EdgeInsets.all(8.0),
+               child: Image.asset("assets/icons/Movies.png"),
+               /*Image.asset(room.category=='Movies'?"assets/icons/Movies.png"
+                   : room.category=='Sports'? "assets/icons/sports.png": "assets/icons/music.png"),*/
+             ),
+            Text(room.name, style: TextStyle(fontWeight: FontWeight.w500),),
 
             ]
           )

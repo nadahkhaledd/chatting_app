@@ -11,11 +11,11 @@
      <item>
         <bitmap
             android:gravity="center"
-            android:src="@mipmap/group7" />
+            android:src="@mipmap/logo" />
     </item>
     <item>
         <bitmap
             android:gravity="bottom"
-            android:src="@mipmap/logo" />
+            android:src="@mipmap/group7" />
     </item>
 </layer-list>
