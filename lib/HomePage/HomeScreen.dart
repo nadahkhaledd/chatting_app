@@ -1,11 +1,7 @@
-import 'package:chatting_app/Database/DatabaseHelper.dart';
-import 'package:chatting_app/Database/Room.dart';
 import 'package:chatting_app/Rooms/AddRooms.dart';
-import 'package:chatting_app/Rooms/RoomWidget.dart';
 import 'package:chatting_app/Rooms/browseroom.dart';
 import 'package:chatting_app/Rooms/myrooms.dart';
 import 'package:chatting_app/componants/componants.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -26,14 +22,15 @@ class _HomeScreenState extends State<HomeScreen> {
     Tab(text: "MyRooms"),
     Tab(text: "Browse"),
   ];
-  List<Widget> screens=[
+  List<Widget> screens = [
     MyRooms(),
     BrowseRoom(),
   ];
   late TabController _tabController;
+
   @override
   Widget build(BuildContext context) {
-  return DefaultTabController(
+    return DefaultTabController(
     length: screensTabs.length,
     child: Builder(builder: (BuildContext context) {
       final TabController tabController = DefaultTabController.of(context)!;
@@ -70,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     CupertinoIcons.search,
                     //Icons.search,
                     color: Colors.white,
-                    size: 42.0,
+                    size: 32.0,
                   ),
                   onPressed: () {},
                 )
