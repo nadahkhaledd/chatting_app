@@ -40,11 +40,13 @@ class _LoginPageState extends State<LoginPage> {
             image: DecorationImage(
                 image: AssetImage("assets/images/background.png"),
                 fit: BoxFit.fill)
-        ),),
+        ),
+        ),
 
         Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
+            automaticallyImplyLeading: false,
             title: Text(AppLocalizations.of(context)!.appTitle,
               style: TextStyle(fontWeight: FontWeight.bold),),
             centerTitle: true,
@@ -174,7 +176,7 @@ class _LoginPageState extends State<LoginPage> {
      else{
        getUsersCollection().doc(userCredential.user!.uid).get().then((user){
          provider.updateUser(user.data());
-         Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+         Navigator.pushReplacementNamed(context, HomeScreen.routeName,);
        } );
      }
    } on FirebaseAuthException catch (e) {

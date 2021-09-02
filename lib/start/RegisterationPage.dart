@@ -186,7 +186,6 @@ class _RegisterationPageState extends State<RegisterationPage> {
       );
       final usersCollectionRef = getUsersCollection();
 
-
       final user = dbUser.User(id: userCredential.user!.uid, username: username, email: email);
       usersCollectionRef.doc(user.id).set(user).then((value) {
         provider.updateUser(user);

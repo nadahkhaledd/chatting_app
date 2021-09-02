@@ -1,6 +1,7 @@
 import 'package:chatting_app/Database/DatabaseHelper.dart';
 import 'package:chatting_app/Database/Room.dart';
 import 'package:chatting_app/componants/componants.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -16,6 +17,7 @@ class AddRooms extends StatefulWidget {
 }
 
 class _AddRoomsState extends State<AddRooms> {
+
   TextEditingController roomController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -25,9 +27,7 @@ class _AddRoomsState extends State<AddRooms> {
     "Movies",
     "Music",
   ];
-
   String dropdownValue = 'One';
-
   String selectedCategory = "Sports";
   @override
   Widget build(BuildContext context) {
@@ -114,12 +114,15 @@ class _AddRoomsState extends State<AddRooms> {
                                 value: value,
                                 child: Row(children: [
                                   Text(value),
-                                  // Image(
-                                  //   image: AssetImage('assets/icons/Movies.png'),
-                                  //   width: 20,
-                                  //   height: 20,
-                                  //   fit: BoxFit.cover,
-                                  // )
+                                  SizedBox(
+                                    width: widthResponsive(context: context, width: 20),
+                                  ),
+                                  Image(
+                                    image: AssetImage('assets/icons/'+value+'.png'),
+                                    width: 20,
+                                    height: 20,
+                                    fit: BoxFit.cover,
+                                  )
                                 ]),
                               );
                             }).toList(),
@@ -173,7 +176,8 @@ class _AddRoomsState extends State<AddRooms> {
         category: selectedCategory,
         description: descriptionController.text,
         id: docRef.id,
-        name: roomController.text);
+        name: roomController.text,
+    );
     docRef.set(room).then((value) => {
     setState(() {
     isLoading = true;

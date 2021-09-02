@@ -1,4 +1,5 @@
 //ignore: import_of_legacy_library_into_null_safe
+import 'package:chatting_app/RoomDetails/RoomDetailsScreen.dart';
 import 'package:chatting_app/Rooms/AddRooms.dart';
 import 'package:chatting_app/start/RegisterationPage.dart';
 import 'package:chatting_app/tools/AppProvider.dart';
@@ -45,6 +46,7 @@ class _MyAppState extends State<MyApp> {
         LoginPage.routeName: (context)=> LoginPage(),
     HomeScreen.routeName : (context)=>HomeScreen(),
     AddRooms.routeName: (context)=> AddRooms(),
+        RoomDetailsScreen.routeName:(context)=>RoomDetailsScreen()
       },
       initialRoute: LoginPage.routeName,
 
