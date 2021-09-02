@@ -4,6 +4,8 @@ class User{
   String username;
   String email;
 
+   String get getUsername => username;
+
   User({required this.id, required this.username, required this.email});
 
   User.fromJson(Map<String, Object?> json)

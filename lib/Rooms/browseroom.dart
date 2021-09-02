@@ -29,8 +29,8 @@ class BrowseRoom extends StatelessWidget {
               return GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  crossAxisSpacing: 4,
-                  mainAxisSpacing: 4,
+                  crossAxisSpacing: 25,
+                  mainAxisSpacing: 10,
                 ),
                 itemBuilder: (BuildContext, index) {
                   return RoomWidget(roomList[index]);

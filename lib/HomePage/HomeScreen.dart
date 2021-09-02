@@ -11,6 +11,8 @@ import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = 'HomeScreen';
+  //String currentUser;
+  //HomeScreen(this.currentUser);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();

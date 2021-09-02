@@ -16,40 +16,40 @@ class RoomWidget extends StatelessWidget {
             Navigator.of(context).pushNamed(RoomDetailsScreen.routeName,arguments: RoomDetailsArgs(room));
         },
         child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(12.0),
         child: Container(
+          height: 27,
+          width: 17,
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(40),
+            borderRadius: BorderRadius.circular(10),
             boxShadow:[ BoxShadow(
               color: Colors.grey,
-              blurRadius: 4,
+              blurRadius: 5,
               offset: Offset(4,8),
             )]
           ),
         child:  Column(
           crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children:  [
-            SizedBox(
-              height: heightResponsive(context: context, height: 20),
-
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Image(
+                image: AssetImage('assets/icons/'+room.category+'.png'),
+                width: widthResponsive(context: context, width: 3),
+                height: heightResponsive(context: context, height: 10),
+                fit: BoxFit.contain,
+              ),
             ),
-            Image(
-              image: AssetImage('assets/icons/'+room.category+'.png'),
-              width: widthResponsive(context: context, width: 3),
-              height: heightResponsive(context: context, height: 10),
-              fit: BoxFit.contain,
-            ),
 
-                Center(
-                  child: Text(room.name,style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20
-                  ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.center,
-                  ),
+                Text(room.name,style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15
+                ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
                 ),
 
 

@@ -174,7 +174,8 @@ class _AddRoomsState extends State<AddRooms> {
         category: selectedCategory,
         description: descriptionController.text,
         id: docRef.id,
-        name: roomController.text);
+        name: roomController.text,
+    );
     docRef.set(room).then((value) => {
     setState(() {
     isLoading = true;

@@ -4,6 +4,7 @@ import 'package:chatting_app/Database/Room.dart';
 import 'package:chatting_app/RoomDetails/MessageWidget.dart';
 import 'package:chatting_app/tools/AppProvider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -56,6 +57,10 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
               centerTitle: true,
               backgroundColor: Colors.transparent,
               elevation: 0,
+              automaticallyImplyLeading: false,
+              actions: [
+                IconButton(onPressed: () => Navigator.pop(context) , icon: Icon(CupertinoIcons.clear_circled, size: 27,))
+              ],
             ),
             body: Container(
               padding: EdgeInsets.all(8),

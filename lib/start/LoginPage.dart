@@ -171,7 +171,7 @@ class _LoginPageState extends State<LoginPage> {
      else{
        getUsersCollection().doc(userCredential.user!.uid).get().then((user){
          provider.updateUser(user.data());
-         Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+         Navigator.pushReplacementNamed(context, HomeScreen.routeName,);
        } );
      }
    } on FirebaseAuthException catch (e) {
