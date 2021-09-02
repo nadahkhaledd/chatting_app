@@ -1,5 +1,5 @@
 import 'package:chatting_app/Database/DatabaseHelper.dart';
-import 'package:chatting_app/Home/HomeScreen.dart';
+import 'package:chatting_app/HomePage/HomeScreen.dart';
 import 'package:chatting_app/tools/AppProvider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import '../Database/User.dart' as dbUser;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 import 'LoginPage.dart';
 
@@ -42,114 +44,118 @@ class _RegisterationPageState extends State<RegisterationPage> {
         Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
-            title: Text('Create Account', style: TextStyle(fontWeight: FontWeight.bold)),
+            title: Text(AppLocalizations.of(context)!.createAccBtn, style: TextStyle(fontWeight: FontWeight.bold)),
             centerTitle: true,
             backgroundColor: Colors.transparent,
             elevation: 0,
           ),
 
           body: Padding(
-            padding: const EdgeInsets.only(top: 70),
-            child: Container(
-              padding: EdgeInsets.all(12),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Form(
-                      key: registerFormKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        TextFormField(
-                          decoration: InputDecoration(
-                            labelText: 'username',
-                            labelStyle: TextStyle(color: Colors.black54),
-                            floatingLabelBehavior: FloatingLabelBehavior.auto,
-                          ),
-                          validator: (value){
-                            if(value == null || value.isEmpty)
-                              return 'please enter username';
-                            return null;
-                          },
-                          onChanged: (newValue){
-                            username = newValue;
-                          },
-
-                        ),
-
-                        TextFormField(
-                          decoration: InputDecoration(
-                            labelText: 'Email',
-                            labelStyle: TextStyle(color: Colors.black54),
-                            floatingLabelBehavior: FloatingLabelBehavior.auto,
-                          ),
-                          validator: (value){
-                            if(value == null || value.isEmpty)
-                              return 'please enter your email';
-                            return null;
-                          },
-                          onChanged: (newValue){
-                            email = newValue;
-                          },
-
-                        ),
-
-                        TextFormField(
-                          obscureText: _isObscure,
-                          decoration: InputDecoration(
-                            labelText: 'Password',
-                            suffixIcon: IconButton(
-                              icon: Icon(_isObscure ? Icons.visibility : Icons.visibility_off),
-                              onPressed: (){
-                                setState(() {
-                                  _isObscure = !_isObscure;
-                                });
-                              },
+            padding: const EdgeInsets.only(top:170),
+            child: SingleChildScrollView(
+              child: Container(
+                padding: EdgeInsets.all(12),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Form(
+                        key: registerFormKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          TextFormField(
+                            decoration: InputDecoration(
+                              labelText: AppLocalizations.of(context)!.username,
+                              labelStyle: TextStyle(color: Colors.black54),
+                              floatingLabelBehavior: FloatingLabelBehavior.auto,
                             ),
-                            labelStyle: TextStyle(color: Colors.black54),
-                            floatingLabelBehavior: FloatingLabelBehavior.auto,
+                            validator: (value){
+                              if(value == null || value.isEmpty)
+                                return 'please enter username';
+                              return null;
+                            },
+                            onChanged: (newValue){
+                              username = newValue;
+                            },
+
                           ),
-                          validator: (value){
-                            if(value == null || value.isEmpty)
-                              return 'please enter password';
-                            else if (value.length < 8)
-                              return 'password minimum length is 8 characters';
-                            return null;
-                          },
-                          onChanged: (newValue){
-                            password = newValue;
-                          },
-                        ),
-                      ],
+
+                          TextFormField(
+                            decoration: InputDecoration(
+                              labelText: AppLocalizations.of(context)!.email,
+                              labelStyle: TextStyle(color: Colors.black54),
+                              floatingLabelBehavior: FloatingLabelBehavior.auto,
+                            ),
+                            validator: (value){
+                              if(value == null || value.isEmpty)
+                                return 'please enter your email';
+                              return null;
+                            },
+                            onChanged: (newValue){
+                              email = newValue;
+                            },
+
+                          ),
+
+                          TextFormField(
+                            obscureText: _isObscure,
+                            decoration: InputDecoration(
+                              labelText: AppLocalizations.of(context)!.password,
+                              suffixIcon: IconButton(
+                                icon: Icon(_isObscure ? Icons.visibility : Icons.visibility_off),
+                                onPressed: (){
+                                  setState(() {
+                                    _isObscure = !_isObscure;
+                                  });
+                                },
+                              ),
+                              labelStyle: TextStyle(color: Colors.black54),
+                              floatingLabelBehavior: FloatingLabelBehavior.auto,
+                            ),
+                            validator: (value){
+                              if(value == null || value.isEmpty)
+                                return 'please enter password';
+                              else if (value.length < 8)
+                                return 'password minimum length is 8 characters';
+                              return null;
+                            },
+                            onChanged: (newValue){
+                              password = newValue;
+                            },
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  isLoading?
-                      Center(
-                        child: CircularProgressIndicator(),):
-                  Padding(
-                    padding: const EdgeInsets.only(top: 85),
-                    child: ElevatedButton(onPressed: ()=> createAccount(),
-                      style: ElevatedButton.styleFrom(
-                        primary:Colors.white,
-                        ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Row(
-                          children: [
-                            Expanded(flex: 3, child: Text('Create Account', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.grey),)),
-                            Expanded(child: Icon(CupertinoIcons.arrow_right, color: Colors.grey,)),
-                          ],
+                    isLoading?
+                        Center(
+                          child: CircularProgressIndicator(),):
+                    Padding(
+                      padding: const EdgeInsets.only(top: 85),
+                      child: ElevatedButton(
+                        onPressed: ()=> createAccount(),
+                        style: ElevatedButton.styleFrom(
+                          primary:Colors.white,
+                          ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Row(
+                            children: [
+                              Expanded(flex: 3, child: Text(AppLocalizations.of(context)!.createAccBtn,
+                                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.grey),)),
+                              Expanded(child: Icon(CupertinoIcons.arrow_right, color: Colors.grey,)),
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextButton(onPressed: () => Navigator.pushReplacementNamed(context, LoginPage.routeName),
-                      child: Text('Already have an account?'),),
-                  ),
-                ],
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextButton(onPressed: () => Navigator.pushReplacementNamed(context, LoginPage.routeName),
+                        child: Text(AppLocalizations.of(context)!.haveAnAccount),),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -179,7 +185,6 @@ class _RegisterationPageState extends State<RegisterationPage> {
           password: password
       );
       final usersCollectionRef = getUsersCollection();
-
 
       final user = dbUser.User(id: userCredential.user!.uid, username: username, email: email);
       usersCollectionRef.doc(user.id).set(user).then((value) {

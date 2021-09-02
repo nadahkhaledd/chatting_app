@@ -1,0 +1,20 @@
+{
+  "appTitle": "Chat App",
+  "logout" : "Logout",
+  "settings" : "settings",
+  "createRoomBtn" : "Create",
+  "createRoomTxt": "Create New Room",
+  "welcomeBack" : "Welcome Back!",
+  "email": "Email",
+  "password": "Password",
+  "forgotPass": "Forgot password?",
+  "login": "Login",
+  "orCreateAcc": "or Create an account",
+  "username": "username",
+  "createAccBtn": "Create Account",
+  "haveAnAccount": "Already have an account?",
+  "roomName": "Room Name",
+  "roomDescription": "Room Description"
+
+
+}

@@ -1,0 +1,18 @@
+{
+  "appTitle": "تطبيق الرسائل",
+  "logout" : "تسجيل الخروج",
+  "settings" : "الإعدادات",
+  "createRoomBtn" : "إنشاء",
+  "createRoomTxt": "إنشاء غرفة جديدة",
+  "welcomeBack" : "مرحبا مجددا!",
+  "email": "البريد الإلكتروني",
+  "password": "كلمة السر",
+  "forgotPass": "نسيت كلمة السر؟",
+  "login": "تسجيل الدخول",
+  "orCreateAcc": "أو إنشاء حساب",
+  "username": "اسم المستخدم",
+  "createAccBtn": "إنشاء حساب",
+  "haveAnAccount": "لديك حساب من قبل؟",
+  "roomName": "اسم الغرفة",
+  "roomDescription": "وصف الغرفة"
+}

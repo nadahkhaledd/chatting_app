@@ -26,36 +26,15 @@ void navigateAndFinish(context, widget) => Navigator.pushAndRemoveUntil(
 );
 
 //SHOW TOAST
-enum ToastStates {
-  SUCCESS,
-  ERROR,
-  WARNING,
-}
-
-Color chooseToastColor(ToastStates state) {
-  Color color;
-  switch (state) {
-    case ToastStates.SUCCESS:
-      color = Colors.green;
-      break;
-    case ToastStates.ERROR:
-      color = Colors.red;
-      break;
-    case ToastStates.WARNING:
-      color = Colors.yellow;
-      break;
-  }
-  return color;
-}
 
 Widget defaultTextFormField({
   Color borderColor = const Color(0xFF384A8A),
-  Color focusedColor = const Color(0xFFEC7C28),
+  Color focusedColor =  Colors.grey,
   Color fontColor = const Color(0xFFEC7C28),
-  double fontSize=11,
+  double fontSize=15,
   required BuildContext context,
   double width = double.infinity,
-  double height = 22.0,
+  double height = 10,
   required TextEditingController controller,
   required TextInputType type,
   required String label,
@@ -115,11 +94,11 @@ Widget defaultTextFormField({
         },
         decoration: InputDecoration(
 
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: borderColor,
-            ),
-          ),
+          // enabledBorder: OutlineInputBorder(
+          //   borderSide: BorderSide(
+          //     color: borderColor,
+          //   ),
+          // ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
               color: focusedColor,
@@ -130,7 +109,7 @@ Widget defaultTextFormField({
           labelStyle: TextStyle(
             color : fontColor,
           ),
-          border: OutlineInputBorder(),
+       //   border: OutlineInputBorder(),
         ),
       ),
     );
@@ -179,6 +158,7 @@ Widget defaultInkWellContainer({
     );
 
 Widget defaultElevatedButton({
+  Function? onPressed,
   required BuildContext context,
   double width = double.infinity,
   double height = 22,
@@ -205,7 +185,10 @@ Widget defaultElevatedButton({
       ),
 
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          if(onPressed!=null)
+          onPressed();
+        },
         child: Text(
           buttonName,
           textAlign: TextAlign.center,
