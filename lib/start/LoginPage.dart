@@ -46,6 +46,7 @@ class _LoginPageState extends State<LoginPage> {
         Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
+            automaticallyImplyLeading: false,
             title: Text(AppLocalizations.of(context)!.appTitle,
               style: TextStyle(fontWeight: FontWeight.bold),),
             centerTitle: true,

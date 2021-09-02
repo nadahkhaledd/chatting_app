@@ -1,12 +1,15 @@
 
 
+import 'package:chatting_app/HomePage/HomeScreen.dart';
+import 'package:chatting_app/HomePage/SideMenu.dart';
 import 'package:chatting_app/tools/AppProvider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 
 class Settings extends StatefulWidget {
-
+  static const String routeName = 'Settings';
   String language = 'English';
   @override
   _SettingsState createState() => _SettingsState();
@@ -20,33 +23,49 @@ class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     provider =Provider.of<AppProvider>(context, listen: false);
-    return Scaffold(
+    language = provider.currentLocale== 'en'? 'English' : 'العربية';
+    return Stack(
 
-
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/images/background.png'),
-            fit: BoxFit.fill,
-          ),
+      children:[
+        Container(color: Colors.white),
+        Container(
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage("assets/images/background.png"),
+                  fit: BoxFit.fill)),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: EdgeInsets.all(10),
-              child: Text(
-                '',
-                //AppLocalizations.of(context)!.lang,
+
+        Scaffold(
+          backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          actions: [
+            IconButton(onPressed: () => Navigator.pushNamed(context, HomeScreen.routeName), icon: Icon(CupertinoIcons.chevron_forward))
+          ],
+          backgroundColor: Colors.transparent,
+          title: Text('Settings'),
+          centerTitle: true,
+          automaticallyImplyLeading: false,
+          elevation: 0,
+        ),
+
+        drawer: SideMenu(),
+
+
+        body: Padding(
+          padding: const EdgeInsets.only(
+            left: 8, right: 8, top: 135
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Language',
                 style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
                     fontSize: 15),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 20,top: 250),
-              child: DropdownButton(
+              DropdownButton(
                 style: TextStyle(color: Colors.black),
 
                 focusColor:  provider.primaryColor,
@@ -77,11 +96,12 @@ class _SettingsState extends State<Settings> {
                   });
                 },
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-      );
+        ),
+    ],
+    );
 
   }
 }

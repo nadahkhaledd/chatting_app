@@ -64,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
               centerTitle: true,
               backgroundColor: Colors.transparent,
               elevation: 0,
-              <Widget>[
+              actions: <Widget>[
                 IconButton(
                   icon: Icon(
                     CupertinoIcons.search,

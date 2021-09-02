@@ -10,10 +10,12 @@ import 'Settings.dart';
 class SideMenu extends Drawer{
   @override
   Widget build(BuildContext context) {
+
     // TODO: implement build
     return Drawer(
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor:  Color.fromARGB(255, 53, 152, 219),
           toolbarHeight: 95,
           title: Center(
@@ -29,55 +31,61 @@ class SideMenu extends Drawer{
           child: Column(
 
             children: [
-              InkWell(
-                onTap: ()
-                {
-                  FirebaseAuth.instance.signOut();
-                  Navigator.pushReplacementNamed(context, LoginPage.routeName);
-                },
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Icon(
-                          Icons.logout
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: InkWell(
+                  onTap: ()
+                  { Navigator.push(context, MaterialPageRoute(builder: (context) => Settings()));
+                  },
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Icon(
+                            Icons.settings
+                        ),
                       ),
-                    ),
-                    Text(
-                      AppLocalizations.of(context)!.logout,
-                      style: TextStyle(
+                      Text(
+                        AppLocalizations.of(context)!.settings,
+                        style: TextStyle(
                           //color: myThemeData.TextColor,
-                          fontSize: 23,
-                          fontWeight: FontWeight.w600),
-                    ),
-                  ],
+                            fontSize: 23,
+                            fontWeight: FontWeight.w600),
+                      )
+                    ],
+                  ),
                 ),
               ),
 
-              SizedBox(height: 15.0,),
-
-              InkWell(
-                onTap: ()
-                { Navigator.push(context, MaterialPageRoute(builder: (context) => Settings()));
-                },
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Icon(
-                        Icons.settings
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: InkWell(
+                  onTap: ()
+                  {
+                    FirebaseAuth.instance.signOut();
+                    Navigator.pushReplacementNamed(context, LoginPage.routeName);
+                  },
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Icon(
+                            Icons.logout
+                        ),
                       ),
-                    ),
-                    Text(
-                      AppLocalizations.of(context)!.settings,
-                      style: TextStyle(
-                        //color: myThemeData.TextColor,
-                          fontSize: 23,
-                          fontWeight: FontWeight.w600),
-                    )
-                  ],
+                      Text(
+                        AppLocalizations.of(context)!.logout,
+                        style: TextStyle(
+                            //color: myThemeData.TextColor,
+                            fontSize: 23,
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ],
+                  ),
                 ),
               ),
+
+
             ],
           ),
         ),
