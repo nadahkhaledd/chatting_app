@@ -1,7 +1,7 @@
 import 'package:chatting_app/Database/Room.dart';
+import 'package:chatting_app/RoomDetails/JoinRoom.dart';
 import 'package:chatting_app/RoomDetails/RoomDetailsScreen.dart';
 import 'package:chatting_app/componants/componants.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class RoomWidget extends StatelessWidget {
@@ -13,7 +13,11 @@ class RoomWidget extends StatelessWidget {
       InkWell(
         onTap: ()
         {
-            Navigator.of(context).pushNamed(RoomDetailsScreen.routeName,arguments: RoomDetailsArgs(room));
+          var route = new MaterialPageRoute(
+            builder: (BuildContext context) => JoinRoom(room),
+          );
+          Navigator.of(context).push(route);
+            //Navigator.of(context).pushNamed(RoomDetailsScreen.routeName,arguments: RoomDetailsArgs(room));
         },
         child: Padding(
         padding: const EdgeInsets.all(12.0),
