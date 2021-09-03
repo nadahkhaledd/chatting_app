@@ -1,4 +1,5 @@
 import 'package:chatting_app/Database/Room.dart';
+import 'package:chatting_app/Database/User.dart';
 import 'package:chatting_app/HomePage/HomeScreen.dart';
 import 'package:chatting_app/componants/componants.dart';
 import 'package:chatting_app/tools/AppProvider.dart';
@@ -20,7 +21,7 @@ class JoinRoom extends StatefulWidget {
 
 class _JoinRoomState extends State<JoinRoom> {
   late AppProvider provider;
-
+  //List<User> members = [];
 
   @override
   Widget build(BuildContext context) {
@@ -46,21 +47,7 @@ class _JoinRoomState extends State<JoinRoom> {
               centerTitle: true,
               backgroundColor: Colors.transparent,
               elevation: 0,
-              automaticallyImplyLeading: false,
-              actions: [
-                PopupMenuButton(itemBuilder: (context) =>
-                [
-                  PopupMenuItem(
-                      child: InkWell(
-                          child: Text('Leave Room'),
-                          onTap: () =>
-                              Navigator.pushReplacementNamed(
-                                  context, HomeScreen.routeName)
-                      )
-                  )
-                ]
-                )
-              ],
+              //automaticallyImplyLeading: false,
             ),
             body: Container(
               padding: EdgeInsets.all(8),
@@ -71,57 +58,59 @@ class _JoinRoomState extends State<JoinRoom> {
                   ],
                   borderRadius: BorderRadius.all(Radius.circular(12)),
                   color: Colors.white),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.all(8),
-                      child: Center(
-                        child: Text('Hello, Welcome to our chat room', style:
-                        TextStyle(
-                            color: Colors.black54, fontWeight: FontWeight.w400, fontSize: 17),),
-                      )
-                  ),
-
-                  Padding(
+              child: Expanded(
+                child: Column(
+                  children: [
+                    Padding(
                       padding: EdgeInsets.all(8),
-                      child: Center(
-                        child: Text('Join ' + widget.room.name + '!', style:
-                        TextStyle(
-                            color: Colors.black, fontWeight: FontWeight.bold, fontSize: 17),),
-                      )
-                  ),
-
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Image.asset('assets/icons/'+widget.room.category+'.png',
-                      width: widthResponsive(context: context, width: 1),
-                      height: heightResponsive(context: context, height: 5),),
-                  ),
-
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Center(
-                      child: Text(widget.room.description, style: TextStyle(
-                          color: Colors.black45, fontWeight: FontWeight.w400),),
+                        child: Center(
+                          child: Text('Hello, Welcome to our chat room', style:
+                          TextStyle(
+                              color: Colors.black54, fontWeight: FontWeight.w400, fontSize: 17),),
+                        )
                     ),
-                  ),
 
-                  Expanded(
-                    child: Center(
-                      child: ElevatedButton(
-                        child: Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Text('Join', style: TextStyle(fontWeight: FontWeight.bold),),
-                        ),
-                        onPressed: ()
-                        {
-                          Navigator.of(context).pushNamed(RoomDetailsScreen.routeName,arguments: RoomDetailsArgs(widget.room));
-                        },
+                    Padding(
+                        padding: EdgeInsets.all(8),
+                        child: Center(
+                          child: Text('Join ' + widget.room.name + '!', style:
+                          TextStyle(
+                              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 19),),
+                        )
+                    ),
+
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Image.asset('assets/icons/'+widget.room.category+'.png',
+                        width: widthResponsive(context: context, width: 0.7),
+                        height: heightResponsive(context: context, height: 4),),
+                    ),
+
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Center(
+                        child: Text(widget.room.description, style: TextStyle(
+                            color: Colors.black45, fontWeight: FontWeight.w400, fontSize: 15),),
                       ),
                     ),
-                  )
 
-                ],
+                    Expanded(
+                      child: Center(
+                        child: ElevatedButton(
+                          child: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Text('Join', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+                          ),
+                          onPressed: ()
+                          {
+                            Navigator.of(context).pushNamed(RoomDetailsScreen.routeName,arguments: RoomDetailsArgs(widget.room));
+                          },
+                        ),
+                      ),
+                    )
+
+                  ],
+                ),
               ),
             ),
           ),
