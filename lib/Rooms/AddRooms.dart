@@ -1,15 +1,16 @@
 import 'package:chatting_app/Database/DatabaseHelper.dart';
 import 'package:chatting_app/Database/Room.dart';
 import 'package:chatting_app/componants/componants.dart';
+import 'package:chatting_app/tools/AppProvider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 
 class AddRooms extends StatefulWidget {
-  @override
   static const String routeName = 'AddRooms';
 
   @override
@@ -17,6 +18,7 @@ class AddRooms extends StatefulWidget {
 }
 
 class _AddRoomsState extends State<AddRooms> {
+  late AppProvider provider;
 
   TextEditingController roomController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
@@ -31,6 +33,7 @@ class _AddRoomsState extends State<AddRooms> {
   String selectedCategory = "Sports";
   @override
   Widget build(BuildContext context) {
+    provider = Provider.of<AppProvider>(context);
     return Stack(
       children: [
         Container(color: Colors.white),
@@ -170,13 +173,14 @@ class _AddRoomsState extends State<AddRooms> {
     setState(() {
       isLoading = true;
     });
-    final docRef=getRoomsCollectionConvertor().doc(); //Create document in firestor
+    final docRef=getRoomsCollectionConvertor().doc(); //Create document in firestore
 
     Room room=Room(
         category: selectedCategory,
         description: descriptionController.text,
         id: docRef.id,
         name: roomController.text,
+      owner: provider.currentUser!.username
     );
     docRef.set(room).then((value) => {
     setState(() {
