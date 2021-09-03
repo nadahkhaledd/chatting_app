@@ -2,34 +2,37 @@ import 'package:chatting_app/Rooms/AddRooms.dart';
 import 'package:chatting_app/Rooms/browseroom.dart';
 import 'package:chatting_app/Rooms/myrooms.dart';
 import 'package:chatting_app/componants/componants.dart';
+import 'package:chatting_app/tools/AppProvider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
+import 'package:provider/provider.dart';
+import '../Database/User.dart';
 import 'SideMenu.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = 'HomeScreen';
-  //String currentUser;
-  //HomeScreen(this.currentUser);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late AppProvider provider;
   List<Tab> screensTabs = [
     Tab(text: "MyRooms"),
     Tab(text: "Browse"),
-  ];
-  List<Widget> screens = [
-    MyRooms(),
-    BrowseRoom(),
   ];
   late TabController _tabController;
 
   @override
   Widget build(BuildContext context) {
+    provider = Provider.of<AppProvider>(context);
+    List<Widget> screens = [
+      myroom(),
+      BrowseRoom(),
+    ];
+
     return DefaultTabController(
     length: screensTabs.length,
     child: Builder(builder: (BuildContext context) {

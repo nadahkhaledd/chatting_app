@@ -1,6 +1,7 @@
 import 'package:chatting_app/Database/DatabaseHelper.dart';
 import 'package:chatting_app/Database/Messages.dart';
 import 'package:chatting_app/Database/Room.dart';
+import 'package:chatting_app/HomePage/HomeScreen.dart';
 import 'package:chatting_app/RoomDetails/MessageWidget.dart';
 import 'package:chatting_app/tools/AppProvider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -58,8 +59,20 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
               backgroundColor: Colors.transparent,
               elevation: 0,
               automaticallyImplyLeading: false,
-              actions: [
+              /*actions: [
                 IconButton(onPressed: () => Navigator.pop(context) , icon: Icon(CupertinoIcons.clear_circled, size: 27,))
+              ],*/
+              actions: [
+                PopupMenuButton(itemBuilder:(context)=>
+                    [
+                      PopupMenuItem(
+                          child: InkWell(
+                            child: Text('Leave Room'),
+                            onTap: ()=>  Navigator.pushReplacementNamed(context, HomeScreen.routeName)
+                          )
+                      )
+                    ]
+                )
               ],
             ),
             body: Container(
@@ -85,12 +98,12 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                                 itemBuilder: (buildContext, index) {
 
                                   var content=snapshot.data?.docs[index].get("content");
+                                  //print(content);
                                   var id=snapshot.data?.docs[index].get("senderId");
-                                  var senderName=snapshot.data?.docs[index].get("senderNamw");
+                                  var senderName=snapshot.data?.docs[index].get("senderName");
                                   var time=snapshot.data?.docs[index].get("time");
                                   //print(snapshot.data?.docs[index].get("senderName"));
-                                  return MessageWidget(
-                                      content,id,senderName,time);
+                                  return MessageWidget(content,id,senderName,time);
                                 },
                                 itemCount: snapshot.data?.size ?? 0,
                               );
