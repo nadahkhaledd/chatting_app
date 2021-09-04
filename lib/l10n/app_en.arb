@@ -14,7 +14,13 @@
   "createAccBtn": "Create Account",
   "haveAnAccount": "Already have an account?",
   "roomName": "Room Name",
-  "roomDescription": "Room Description"
+  "roomDescription": "Room Description",
+  "myRooms" : "MyRooms",
+  "browse" : "Browse",
+  "searchRoomNameTxt" : "Search Room Name/category/description",
+  "welcomeToRoomTxt" : "Hello, Welcome to our chat room",
+  "joinBtn" : "join",
+  "joinTxt" : "join"
 
 
 }

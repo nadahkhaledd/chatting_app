@@ -25,3 +25,18 @@ CollectionReference <Messages> getMessagesCollectionConvertor(String roomId)
     fromFirestore: (snapshot, _) => Messages.fromJson(snapshot.data()!),
     toFirestore: (message, _) => message.toJson(),);
 }
+
+List<Room> searchRoomsForQuery(List<Room> toBeSearched , String searchValue)
+{
+  searchValue.toLowerCase();
+  final List<Room> matchingRooms= toBeSearched.where((room) {
+    final name = room.name.toLowerCase();
+    final description = room.description.toLowerCase();
+    final category = room.category.toLowerCase();
+    return name.contains(searchValue) ||
+        description.contains(searchValue) ||
+        category.contains(searchValue);
+  }).toList();
+
+  return matchingRooms;
+}

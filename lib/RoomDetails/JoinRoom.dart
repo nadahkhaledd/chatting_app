@@ -6,6 +6,7 @@ import 'package:chatting_app/tools/AppProvider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'RoomDetailsScreen.dart';
 
@@ -64,7 +65,7 @@ class _JoinRoomState extends State<JoinRoom> {
                     Padding(
                       padding: EdgeInsets.all(8),
                         child: Center(
-                          child: Text('Hello, Welcome to our chat room', style:
+                          child: Text(AppLocalizations.of(context)!.welcomeToRoomTxt, style:
                           TextStyle(
                               color: Colors.black54, fontWeight: FontWeight.w400, fontSize: 17),),
                         )
@@ -73,7 +74,7 @@ class _JoinRoomState extends State<JoinRoom> {
                     Padding(
                         padding: EdgeInsets.all(8),
                         child: Center(
-                          child: Text('Join ' + widget.room.name + '!', style:
+                          child: Text(AppLocalizations.of(context)!.joinTxt + widget.room.name + '!', style:
                           TextStyle(
                               color: Colors.black, fontWeight: FontWeight.bold, fontSize: 19),),
                         )
@@ -99,7 +100,7 @@ class _JoinRoomState extends State<JoinRoom> {
                         child: ElevatedButton(
                           child: Padding(
                             padding: const EdgeInsets.all(12.0),
-                            child: Text('Join', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+                            child: Text(AppLocalizations.of(context)!.joinBtn, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
                           ),
                           onPressed: ()
                           {
