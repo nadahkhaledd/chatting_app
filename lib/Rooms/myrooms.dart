@@ -28,6 +28,7 @@ class myroom extends StatelessWidget {
               final List<Room> roomList = snapshot.data?.docs
                   .map((singleDoc) => singleDoc.data())
                   .toList() ?? [];
+              ownRooms=[];
               for(Room room in roomList)
                 {
                   if(room.owner == provider.currentUser!.username)
