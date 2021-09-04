@@ -29,7 +29,7 @@ class _JoinRoomState extends State<JoinRoom> {
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)?.settings.arguments as RoomDetails;
-     room=args.room!;
+     room=args.room;
     provider = Provider.of<AppProvider>(context);
     joinRef = getMemberCollectionConvertor(room.id);
     return Container(

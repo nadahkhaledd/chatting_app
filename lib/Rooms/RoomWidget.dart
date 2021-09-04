@@ -1,6 +1,5 @@
 import 'package:chatting_app/Database/DatabaseHelper.dart';
 import 'package:chatting_app/Database/Member.dart';
-import 'package:chatting_app/Database/Messages.dart';
 import 'package:chatting_app/Database/Room.dart';
 import 'package:chatting_app/RoomDetails/JoinRoom.dart';
 import 'package:chatting_app/RoomDetails/RoomDetailsScreen.dart';
@@ -8,7 +7,6 @@ import 'package:chatting_app/componants/componants.dart';
 import 'package:chatting_app/tools/AppProvider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 
@@ -27,30 +25,38 @@ class _RoomWidgetState extends State<RoomWidget> {
   @override
   Widget build(BuildContext context) {
     provider = Provider.of<AppProvider>(context);
-
     memberRef = getMemberCollectionConvertor(widget.room.id);
     final Stream<QuerySnapshot<Member>> memberStream = memberRef.snapshots();
-    int members =0;
+      int members =0;
+
     return InkWell(
       onTap: () {
-        if(memberStream.contains(provider.currentUser!.id))
-          {
-            Navigator.of(context).pushNamed(RoomDetailsScreen.routeName, arguments: RoomDetailsArgs(widget.room));
-          }
-        else
-          {
-            Navigator.of(context).pushNamed(JoinRoom.routeName,arguments:RoomDetails(widget.room));
-
-          }
-        // if (membersList.contains(provider.currentUser!.id)) {
-        //   Navigator.of(context).pushNamed(RoomDetailsScreen.routeName,
-        //       arguments: RoomDetailsArgs(widget.room));
-        // } else {
-        //   var route = new MaterialPageRoute(
-        //     builder: (BuildContext context) => JoinRoom(widget.room),
-        //   );
-        //   Navigator.of(context).push(route);
-        // }
+        StreamBuilder<QuerySnapshot<Member>>(
+            stream: memberStream,
+            builder:(BuildContext buildContext,
+                AsyncSnapshot<QuerySnapshot<Member>> snapshot) {
+              if (snapshot.hasData) {
+                if (snapshot.data?.docs.contains(provider.currentUser!.id) ==
+                    true) {
+              Navigator.of(context).pushNamed(RoomDetailsScreen.routeName,
+                      arguments: RoomDetailsArgs(widget.room));
+                }
+                else {
+                  Navigator.of(context).pushNamed(
+                      JoinRoom.routeName, arguments: RoomDetails(widget.room));
+                }
+              }
+             return JoinRoom() ;
+            }
+        );
+        //   {
+        //     Navigator.of(context).pushNamed(RoomDetailsScreen.routeName, arguments: RoomDetailsArgs(widget.room));
+        //   }
+        // else
+        //   {
+        //     Navigator.of(context).pushNamed(JoinRoom.routeName,arguments:RoomDetails(widget.room));
+        //
+        //   }
       },
       child: Padding(
         padding: const EdgeInsets.all(12.0),
