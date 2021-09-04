@@ -1,12 +1,11 @@
+import 'package:chatting_app/Database/DatabaseHelper.dart';
+import 'package:chatting_app/Database/Member.dart';
 import 'package:chatting_app/Database/Room.dart';
-import 'package:chatting_app/Database/User.dart';
-import 'package:chatting_app/HomePage/HomeScreen.dart';
 import 'package:chatting_app/componants/componants.dart';
 import 'package:chatting_app/tools/AppProvider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'RoomDetailsScreen.dart';
 
@@ -15,14 +14,14 @@ class JoinRoom extends StatefulWidget {
   Room room;
   JoinRoom(this.room);
 
-
   @override
   _JoinRoomState createState() => _JoinRoomState();
 }
 
 class _JoinRoomState extends State<JoinRoom> {
   late AppProvider provider;
-  //List<User> members = [];
+  bool isLoading=false;
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -63,9 +62,9 @@ class _JoinRoomState extends State<JoinRoom> {
                 child: Column(
                   children: [
                     Padding(
-                      padding: EdgeInsets.all(8),
+                        padding: EdgeInsets.all(8),
                         child: Center(
-                          child: Text(AppLocalizations.of(context)!.welcomeToRoomTxt, style:
+                          child: Text('Hello, Welcome to our chat room', style:
                           TextStyle(
                               color: Colors.black54, fontWeight: FontWeight.w400, fontSize: 17),),
                         )
@@ -74,7 +73,7 @@ class _JoinRoomState extends State<JoinRoom> {
                     Padding(
                         padding: EdgeInsets.all(8),
                         child: Center(
-                          child: Text(AppLocalizations.of(context)!.joinTxt + widget.room.name + '!', style:
+                          child: Text('Join ' + widget.room.name + '!', style:
                           TextStyle(
                               color: Colors.black, fontWeight: FontWeight.bold, fontSize: 19),),
                         )
@@ -100,10 +99,14 @@ class _JoinRoomState extends State<JoinRoom> {
                         child: ElevatedButton(
                           child: Padding(
                             padding: const EdgeInsets.all(12.0),
-                            child: Text(AppLocalizations.of(context)!.joinBtn, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+                            child: Text('Join', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
                           ),
                           onPressed: ()
                           {
+                            if(_formKey.currentState?.validate()==true)
+                            {
+                              addMember();
+                            }
                             Navigator.of(context).pushNamed(RoomDetailsScreen.routeName,arguments: RoomDetailsArgs(widget.room));
                           },
                         ),
@@ -118,5 +121,24 @@ class _JoinRoomState extends State<JoinRoom> {
         ],
       ),
     );
+  }
+
+  void addMember() {
+    setState(() {
+      isLoading = true;
+    });
+    final docRef=getMembersCollection().doc(); //Create document in firestore
+
+    Member member=Member(
+      id: docRef.id,
+      memberId: provider.currentUser!.id,
+      username: provider.currentUser!.username,
+    );
+    docRef.set(member).then((value) => {
+      setState(() {
+        isLoading = true;
+      }),
+
+    });
   }
 }
