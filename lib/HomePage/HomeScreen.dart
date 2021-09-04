@@ -103,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       if(isSearching==false)
                         isSearching=true;
                       else
-                        isSearching=true;
+                        isSearching=false;
                     });
                   },
                 )

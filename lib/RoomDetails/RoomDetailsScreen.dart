@@ -95,8 +95,8 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                               return Text(snapshot.error.toString());
                             } else if (snapshot.hasData) {
                               return ListView.builder(
-                                itemBuilder: (buildContext, index) {
 
+                                itemBuilder: (buildContext, index) {
                                   var content=snapshot.data?.docs[index].get("content");
                                   //print(content);
                                   var id=snapshot.data?.docs[index].get("senderId");
