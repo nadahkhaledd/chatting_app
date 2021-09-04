@@ -57,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
               bottom: TabBar(
                 tabs: screensTabs,
               ),
-              title: isSearching
+              title: isSearching==true
                   ?
               Container(
                 height: 40,
