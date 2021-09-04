@@ -27,7 +27,7 @@ class Messages {
       'id': id,
       'content': content,
       'time': time,
-      'senderNamw': senderName,
+      'senderName': senderName,
       'senderId': senderId
     };
   }

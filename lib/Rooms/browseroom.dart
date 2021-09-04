@@ -24,8 +24,7 @@ class BrowseRoom extends StatelessWidget {
             {
               final List<Room> roomList = snapshot.data?.docs
                   .map((singleDoc) => singleDoc.data())
-                  .toList() ??
-                  [];
+                  .toList() ?? [];
               return GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,

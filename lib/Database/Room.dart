@@ -4,11 +4,13 @@ class Room {
   String name;
   String category;
   String description;
+  String owner;
   Room(
       {required this.category,
       required this.description,
       required this.id,
-      required this.name});
+      required this.name,
+      required this.owner});
 
   Room.fromJson(Map<String, Object?> json)
       : this(
@@ -16,6 +18,7 @@ class Room {
     name: json['name']! as String,
     category: json['category']! as String,
     description: json['description']! as String,
+    owner: json['owner']! as String
   );
 
   Map<String, Object?> toJson() {
@@ -24,6 +27,7 @@ class Room {
       'name': name,
       'description': description,
       'category': category,
+      'owner': owner
     };
   }
 

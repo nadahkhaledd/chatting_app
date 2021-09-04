@@ -1,7 +1,5 @@
 import 'package:chatting_app/Database/DatabaseHelper.dart';
 import 'package:chatting_app/HomePage/HomeScreen.dart';
-import 'package:chatting_app/componants/componants.dart';
-import 'package:chatting_app/generated/l10n.dart';
 import 'package:chatting_app/start/RegisterationPage.dart';
 import 'package:chatting_app/tools/AppProvider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,7 +7,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import 'package:provider/provider.dart';
 import '../Database/User.dart' as dbUser;
 
@@ -176,7 +173,7 @@ class _LoginPageState extends State<LoginPage> {
      else{
        getUsersCollection().doc(userCredential.user!.uid).get().then((user){
          provider.updateUser(user.data());
-         Navigator.pushReplacementNamed(context, HomeScreen.routeName,);
+         Navigator.pushReplacementNamed(context, HomeScreen.routeName);
        } );
      }
    } on FirebaseAuthException catch (e) {
