@@ -75,8 +75,9 @@ class RecievedMessage extends StatelessWidget {
                         topRight: Radius.circular(12),
                         bottomRight: Radius.circular(12),
                         topLeft: Radius.circular(12))),
-                child: Text(content,
-                    style: TextStyle(color: Color.fromARGB(255, 96, 97, 109)))),
+
+                child: Text(content,style: TextStyle(color: Color.fromARGB(255, 96, 97, 109)))
+                ),
             Text(getDateFormatted(time), style: TextStyle(fontSize: 12)),
           ],
         )
@@ -86,6 +87,30 @@ class RecievedMessage extends StatelessWidget {
 }
 
 String getDateFormatted(int time) {
-  var output = DateFormat('HH:mm a');
+  String answer = getDayFormatted(time) + " " + getTimeFormatted(time);
+  return answer;
+}
+
+String getTimeFormatted(int time) {
+  var output = DateFormat('HH:mm');
   return output.format(DateTime.fromMicrosecondsSinceEpoch(time));
+}
+
+String getDayFormatted(int time) {
+  DateTime date = DateTime.fromMicrosecondsSinceEpoch(time);
+  if (calculateDifference(date) == 0) {
+    return "Today";
+  } else if (calculateDifference(date) == -1) {
+    return "Yesterday";
+  } else {
+    var output = DateFormat('yMMMMEEEEd');
+    return output.format(date);
+  }
+}
+
+int calculateDifference(DateTime date) {
+  DateTime now = DateTime.now();
+  return DateTime(date.year, date.month, date.day)
+      .difference(DateTime(now.year, now.month, now.day))
+      .inDays;
 }

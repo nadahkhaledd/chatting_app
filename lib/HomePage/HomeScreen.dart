@@ -18,47 +18,73 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  String searchValue='';
+  bool isSearching=false;
   late AppProvider provider;
-  List<Tab> screensTabs = [
-    Tab(text: "MyRooms"),
-    Tab(text: "Browse"),
-  ];
+
   late TabController _tabController;
 
   @override
   Widget build(BuildContext context) {
+    List<Tab> screensTabs = [
+      Tab(text: AppLocalizations.of(context)!.myRooms),
+      Tab(text:AppLocalizations.of(context)!.browse),
+    ];
     provider = Provider.of<AppProvider>(context);
     List<Widget> screens = [
-      myroom(),
-      BrowseRoom(),
+      myroom(isSearchIconPressed: isSearching,SearchValue: searchValue),
+      BrowseRoom(isSearchIconPressed: isSearching,searchValue: searchValue),
     ];
 
     return DefaultTabController(
-    length: screensTabs.length,
-    child: Builder(builder: (BuildContext context) {
-      final TabController tabController = DefaultTabController.of(context)!;
-      tabController.addListener(() {
-        if (!tabController.indexIsChanging) {
-        }
-      });
-      return Stack(
-        children:[
+      length: screensTabs.length,
+      child: Builder(builder: (BuildContext context) {
+        final TabController tabController = DefaultTabController.of(context)!;
+        tabController.addListener(() {
+          if (!tabController.indexIsChanging) {}
+        });
+        return Stack(children: [
           Container(color: Colors.white),
-        Container(
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage("assets/images/background.png"),
-                  fit: BoxFit.fill)),
-        ),
+          Container(
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage("assets/images/background.png"),
+                    fit: BoxFit.fill)),
+          ),
           Scaffold(
             backgroundColor: Colors.transparent,
             appBar: AppBar(
-
               bottom: TabBar(
-                tabs:screensTabs,
+                tabs: screensTabs,
               ),
-              title: Text(
-      AppLocalizations.of(context)!.appTitle,
+              title: isSearching==true
+                  ?
+              Container(
+                height: 40,
+                child: TextField(
+
+                  onSubmitted: (String query) async {
+                    setState(() {
+                      searchValue = query;
+                     // check = true;
+                    });
+                  },
+                  decoration: InputDecoration(
+                      hintText: AppLocalizations.of(context)!.searchRoomNameTxt,
+                      filled: true,
+                      fillColor: Colors.white,
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                          borderRadius:
+                          BorderRadius.all(Radius.circular(20))),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                          borderRadius:
+                          BorderRadius.all(Radius.circular(20)))),
+                ),
+              )
+              : Text(
+                AppLocalizations.of(context)!.appTitle,
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               centerTitle: true,
@@ -72,27 +98,30 @@ class _HomeScreenState extends State<HomeScreen> {
                     color: Colors.white,
                     size: 32.0,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    setState(() {
+                      if(isSearching==false)
+                        isSearching=true;
+                      else
+                        isSearching=false;
+                    });
+                  },
                 )
               ],
-
             ),
             drawer: SideMenu(),
-      floatingActionButton: FloatingActionButton(
-      onPressed: () {
-        navigateTo(context, AddRooms());
-      },
-      child: Icon(Icons.add),
-      ),
-      body: TabBarView(
-      children: screens,
-      ),
-      )
-        ]
-
-      );
-
-    }),
-  );
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                navigateTo(context, AddRooms());
+              },
+              child: Icon(Icons.add),
+            ),
+            body: TabBarView(
+              children: screens,
+            ),
+          )
+        ]);
+      }),
+    );
   }
 }

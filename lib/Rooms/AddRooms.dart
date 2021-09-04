@@ -181,6 +181,7 @@ class _AddRoomsState extends State<AddRooms> {
         id: docRef.id,
         name: roomController.text,
       owner: provider.currentUser!.username
+
     );
     docRef.set(room).then((value) => {
     setState(() {

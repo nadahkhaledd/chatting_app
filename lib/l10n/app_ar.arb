@@ -14,5 +14,11 @@
   "createAccBtn": "إنشاء حساب",
   "haveAnAccount": "لديك حساب من قبل؟",
   "roomName": "اسم الغرفة",
-  "roomDescription": "وصف الغرفة"
+  "roomDescription": "وصف الغرفة",
+  "myRooms" : "غرفي",
+  "browse" : "تصفح",
+  "searchRoomNameTxt" : "إبحث باسم/ وصف / فئة الغرفة",
+  "welcomeToRoomTxt" : "مرحبا , أهلا في غرفة محادثتنا",
+  "joinBtn" : "انضم",
+  "joinTxt" : "انضم ل "
 }
