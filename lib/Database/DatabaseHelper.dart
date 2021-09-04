@@ -1,4 +1,5 @@
 //import 'package:chatting_app/Database/Room.dart';
+import 'package:chatting_app/Database/Member.dart';
 import 'package:chatting_app/Database/Messages.dart';
 import 'package:chatting_app/Database/Room.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -25,3 +26,11 @@ CollectionReference <Messages> getMessagesCollectionConvertor(String roomId)
     fromFirestore: (snapshot, _) => Messages.fromJson(snapshot.data()!),
     toFirestore: (message, _) => message.toJson(),);
 }
+
+CollectionReference<Member> getMembersCollection()
+{
+  return FirebaseFirestore.instance.collection(User.COLLECTION_NAME).withConverter<Member>(
+    fromFirestore: (snapshot, _) => Member.fromJson(snapshot.data()!),
+    toFirestore: (member, _) => member.toJson(),);
+}
+

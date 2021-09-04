@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class myroom extends StatelessWidget {
-  //late CollectionReference<Room> roomCollectionRef;
   CollectionReference<Room> roomCollectionRef = getRoomsCollectionConvertor();
    List<Room> ownRooms = [];
   late AppProvider provider;
@@ -35,22 +34,6 @@ class myroom extends StatelessWidget {
                     {
                       ownRooms.add(room);
                     }
-                  //print(roomList.length);
-                  /*if(room.owner == provider.currentUser!.username){
-                    if(ownRooms.length> 0)
-                    {
-                      if(!ownRooms.contains(room))
-                      {
-                        print("doesn't exist");
-                        ownRooms.insert(roomList.indexOf(room), room);
-                      }
-                    }
-                    else if (ownRooms.length == 0) {
-                      print(roomList.indexOf(room));
-                      ownRooms.insert(0, room);
-                    }
-                  }*/
-
                 }
               return GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

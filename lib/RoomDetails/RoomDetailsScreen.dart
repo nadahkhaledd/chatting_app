@@ -59,9 +59,6 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
               backgroundColor: Colors.transparent,
               elevation: 0,
               automaticallyImplyLeading: false,
-              /*actions: [
-                IconButton(onPressed: () => Navigator.pop(context) , icon: Icon(CupertinoIcons.clear_circled, size: 27,))
-              ],*/
               actions: [
                 PopupMenuButton(itemBuilder:(context)=>
                     [
