@@ -7,6 +7,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class myroom extends StatelessWidget {
+  bool isSearchIconPressed;
+  String SearchValue;
+  myroom({
+    required this.isSearchIconPressed,
+    required this.SearchValue
+});
   //late CollectionReference<Room> roomCollectionRef;
   CollectionReference<Room> roomCollectionRef = getRoomsCollectionConvertor();
    List<Room> ownRooms = [];
@@ -35,6 +41,8 @@ class myroom extends StatelessWidget {
                     {
                       ownRooms.add(room);
                     }
+
+
                   //print(roomList.length);
                   /*if(room.owner == provider.currentUser!.username){
                     if(ownRooms.length> 0)
@@ -52,17 +60,37 @@ class myroom extends StatelessWidget {
                   }*/
 
                 }
-              return GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 25,
-                  mainAxisSpacing: 10,
-                ),
-                itemBuilder: (BuildContext, index) {
-                  return RoomWidget(ownRooms[index]);
-                },
-                itemCount: ownRooms.length,
-              );
+              if(isSearchIconPressed )
+              {
+                final List<Room> filteredRooms = searchRoomsForQuery(ownRooms, SearchValue);
+                return GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 25,
+                    mainAxisSpacing: 10,
+                  ),
+                  itemBuilder: (BuildContext, index) {
+                    return RoomWidget(filteredRooms[index]);
+                  },
+                  itemCount: filteredRooms.length,
+                );
+
+              }
+              else
+              {
+                return GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 25,
+                    mainAxisSpacing: 10,
+                  ),
+                  itemBuilder: (BuildContext, index) {
+                    return RoomWidget(ownRooms[index]);
+                  },
+                  itemCount: ownRooms.length,
+                );
+              }
+
             }
             return Center(
               child: CircularProgressIndicator(),

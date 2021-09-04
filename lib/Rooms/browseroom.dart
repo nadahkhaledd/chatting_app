@@ -5,9 +5,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class BrowseRoom extends StatelessWidget {
+  bool isSearchIconPressed;
+  String searchValue;
+  BrowseRoom({required this.isSearchIconPressed,required this.searchValue});
   //late CollectionReference<Room> roomCollectionRef;
 
     CollectionReference<Room> roomCollectionRef = getRoomsCollectionConvertor();
+
 
   @override
 
@@ -25,17 +29,38 @@ class BrowseRoom extends StatelessWidget {
               final List<Room> roomList = snapshot.data?.docs
                   .map((singleDoc) => singleDoc.data())
                   .toList() ?? [];
-              return GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 25,
-                  mainAxisSpacing: 10,
-                ),
-                itemBuilder: (BuildContext, index) {
-                  return RoomWidget(roomList[index]);
-                },
-                itemCount: snapshot.data?.size??0,
-              );
+              if(isSearchIconPressed)
+                {
+                  final List<Room> filteredRooms = searchRoomsForQuery(roomList, searchValue);
+                  return GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 25,
+                      mainAxisSpacing: 10,
+                    ),
+                    itemBuilder: (BuildContext, index) {
+                      return RoomWidget(filteredRooms[index]);
+                    },
+                    itemCount: filteredRooms.length,
+                  );
+
+                }
+              else
+                {
+                  return GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 25,
+                      mainAxisSpacing: 10,
+                    ),
+                    itemBuilder: (BuildContext, index) {
+                      return RoomWidget(roomList[index]);
+                    },
+                    itemCount: snapshot.data?.size??0,
+                  );
+                }
+
+
             }
             return Center(
               child: CircularProgressIndicator(),
@@ -45,4 +70,6 @@ class BrowseRoom extends StatelessWidget {
       ) ,
     );
   }
+
+
 }
