@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'HomePage/HomeScreen.dart';
+import 'RoomDetails/JoinRoom.dart';
 import 'start/LoginPage.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -46,7 +47,8 @@ class _MyAppState extends State<MyApp> {
         LoginPage.routeName: (context)=> LoginPage(),
     HomeScreen.routeName : (context)=>HomeScreen(),
     AddRooms.routeName: (context)=> AddRooms(),
-        RoomDetailsScreen.routeName:(context)=>RoomDetailsScreen()
+        RoomDetailsScreen.routeName:(context)=>RoomDetailsScreen(),
+        JoinRoom.routeName:(context)=>JoinRoom()
       },
       initialRoute: LoginPage.routeName,
 

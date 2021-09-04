@@ -25,12 +25,12 @@ CollectionReference <Messages> getMessagesCollectionConvertor(String roomId)
   return roomsCollection.doc(roomId).collection(Messages.COLLECTION_NAME).withConverter<Messages>(
     fromFirestore: (snapshot, _) => Messages.fromJson(snapshot.data()!),
     toFirestore: (message, _) => message.toJson(),);
-}
 
-CollectionReference<Member> getMembersCollection()
+}
+CollectionReference <Member> getMemberCollectionConvertor(String roomId)
 {
-  return FirebaseFirestore.instance.collection(User.COLLECTION_NAME).withConverter<Member>(
+  final roomsCollection = getRoomsCollectionConvertor();
+  return roomsCollection.doc(roomId).collection(Member.COLLECTION_NAME).withConverter<Member>(
     fromFirestore: (snapshot, _) => Member.fromJson(snapshot.data()!),
     toFirestore: (member, _) => member.toJson(),);
 }
-

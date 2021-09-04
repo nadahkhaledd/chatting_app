@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
+
 class RoomWidget extends StatefulWidget {
   Room room;
   RoomWidget(this.room);
@@ -27,21 +28,29 @@ class _RoomWidgetState extends State<RoomWidget> {
   Widget build(BuildContext context) {
     provider = Provider.of<AppProvider>(context);
 
-    memberRef = getMembersCollection();
+    memberRef = getMemberCollectionConvertor(widget.room.id);
     final Stream<QuerySnapshot<Member>> memberStream = memberRef.snapshots();
-    List<String?> membersList = [];
-    int members = 0;
+    int members =0;
     return InkWell(
       onTap: () {
-        if (membersList.contains(provider.currentUser!.id)) {
-          Navigator.of(context).pushNamed(RoomDetailsScreen.routeName,
-              arguments: RoomDetailsArgs(widget.room));
-        } else {
-          var route = new MaterialPageRoute(
-            builder: (BuildContext context) => JoinRoom(widget.room),
-          );
-          Navigator.of(context).push(route);
-        }
+        if(memberStream.contains(provider.currentUser!.id))
+          {
+            Navigator.of(context).pushNamed(RoomDetailsScreen.routeName, arguments: RoomDetailsArgs(widget.room));
+          }
+        else
+          {
+            Navigator.of(context).pushNamed(JoinRoom.routeName,arguments:RoomDetails(widget.room));
+
+          }
+        // if (membersList.contains(provider.currentUser!.id)) {
+        //   Navigator.of(context).pushNamed(RoomDetailsScreen.routeName,
+        //       arguments: RoomDetailsArgs(widget.room));
+        // } else {
+        //   var route = new MaterialPageRoute(
+        //     builder: (BuildContext context) => JoinRoom(widget.room),
+        //   );
+        //   Navigator.of(context).push(route);
+        // }
       },
       child: Padding(
         padding: const EdgeInsets.all(12.0),
